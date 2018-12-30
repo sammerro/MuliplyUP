@@ -4,7 +4,8 @@
     <header class="header">
       
         <div class="logo">
-          <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg class="logo__svg" width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <title>MultiplyUp logo - asterisk</title>
           <g clip-path="url(#clip0)">
           <circle cx="50" cy="50" r="50" fill="var(--primary-color)"/>
           <path d="M42.4057 53.033L21.194 46.6293L24.4662 36.0237L45.6724 43.9743L45.1258 19.7847L55.8835 19.823L55.0929 44.3595L76.0032 36.6995L79.1994 47.3985L57.5908 53.72L71.4447 72.8241L62.7025 79.4024L49.6966 59.1059L36.97 78.8185L28.2038 72.3888L42.4057 53.033Z" fill="var(--secondary-color)"/>
@@ -141,12 +142,20 @@ body{
   align-items: center;
   .game-container {
     border: 1px solid var(--third-color);
-    height: calc(100vh - 10em);
     width: 100vw;
+    align-self: stretch;
   }
+  @media (min-height: 600px) {
+    .game-container {
+      align-self: center;
+      height: 26.4em;
+      
+    }
+  }
+
   @media (min-width: 450px) {
     .game-container {
-      width: 80vw;
+      width: calc( 450px + (558 - 450) * ( (100vw - 450px) / ( 700 - 450) ));
     }
   }
     @media (min-width: 700px) {
@@ -165,6 +174,19 @@ body{
       margin-right: 1em;
     }
   }
+
+
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
 
 </style>
 
