@@ -95,7 +95,7 @@ export default {
     width: 4rem;
     padding: 1.2rem 0;
     font-size: 1.6rem;
-    background: rgb(29, 143, 14);
+    background: rgb(34, 112, 24);
     box-shadow: 0 0 10px 3px rgb(8, 37, 4);
     border-radius: 1000px;
     color: white;
