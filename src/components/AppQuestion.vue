@@ -34,8 +34,10 @@ export default {
             const result = a*b;
             const times = "&times;";
             this.question = `${a} \xD7 ${b}`
+            //position of correct answer
             const correctIndex = Math.floor(Math.random()*4);
 
+            // using set characteristic to not repeat values
             const setAnswers = new Set();
             while (setAnswers.size < 4) {
                 setAnswers.add(this.generateRandomNumber(result, 10));
@@ -75,6 +77,8 @@ export default {
 
 <style lang="scss" scoped>
 
-
+    div {
+        color: var(--primary-color);
+    }
 </style>
 

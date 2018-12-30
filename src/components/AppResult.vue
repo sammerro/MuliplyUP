@@ -1,6 +1,6 @@
 <template>
     <div>
-        Great answer! Wanna more?
+        <p> Great answer! Wanna more? </p>
         <button @click="onNextButton">
             NEXT
         </button>

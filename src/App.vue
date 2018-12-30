@@ -44,10 +44,22 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import './styles/normalize.css';
 :root {
-  
+  box-sizing: border-box;
+  font-size: calc( 16px + (20 - 16) * ( (100vw - 300px) / ( 900 - 300) ));
+  --primary-color: #344523;
 }
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+//overwrite user agent and normalize
 
 </style>
 
