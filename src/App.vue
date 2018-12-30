@@ -5,7 +5,7 @@
       
         <div class="logo">
           <svg class="logo__svg" width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <title>MultiplyUp logo - asterisk</title>
+          <title>Logo MultiplyUp - asterisk</title>
           <g clip-path="url(#clip0)">
           <circle cx="50" cy="50" r="50" fill="var(--primary-color)"/>
           <path d="M42.4057 53.033L21.194 46.6293L24.4662 36.0237L45.6724 43.9743L45.1258 19.7847L55.8835 19.823L55.0929 44.3595L76.0032 36.6995L79.1994 47.3985L57.5908 53.72L71.4447 72.8241L62.7025 79.4024L49.6966 59.1059L36.97 78.8185L28.2038 72.3888L42.4057 53.033Z" fill="var(--secondary-color)"/>
@@ -32,15 +32,18 @@
 
     <main class="main">
       <div class="game-container">
-        <component :is="mode" @nexted="mode='app-question'" @answerChosen="answerChosen">
+        <component :is="tileNow" @nexted="tileNow='app-question'" @answerChosen="answerChosen">
 
         </component>
-        <button @click="(mode=='app-result')?mode='app-question':mode='app-result'">ZMIEN</button>  
+        <button @click="(tileNow=='app-result')?tileNow='app-question':tileNow='app-result'">ZMIEN</button>  
       </div>
     </main>
   <footer class="footer">
     <p class="footer__text">
-      Come and see my other works!
+    <a href="#" onclick="localStorage.setItem('mode', (localStorage.getItem('mode') || 'light') === 'light' ? 'bright' : 'light'); localStorage.getItem('mode') === 'light' ? document.querySelector('body').classList.add('light') : document.querySelector('body').classList.remove('light')" title="Dark/bright mode">🌓 Light/dark</a>
+    </p>
+    <p class="footer__text">
+     <a href="https://github.com/sammerro">Click and see my other works!</a> 
     </p>
 
   </footer>
@@ -54,14 +57,14 @@ import AppQuestion from './components/AppQuestion.vue';
 export default {
   data() {
     return {
-      mode: 'app-result'
+      tileNow: 'app-result'
     }
   },
   components: {AppResult, AppQuestion},
   methods: {
     answerChosen(ifCorrect) {
       if (ifCorrect ) {
-        this.mode = 'app-result'
+        this.tileNow = 'app-result'
       } else {
         alert("bad answer. Try one more time.")
       }
@@ -73,14 +76,16 @@ export default {
 <style lang="scss">
 
 @import './styles/normalize.css';
+//upper stylesheet (normalize) have beeen slightly modified by me - mainly margins
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+
 :root {
   box-sizing: border-box;
   font-size: calc( 16px + (20 - 16) * ( (100vmin - 300px) / ( 900 - 300) ));
   --primary-color: #92b470;
   --secondary-color: #70b4b4;
-  --third-color:#2f4b4b;
   --logo-border-color: rgb(90, 90, 90);
+  --third-color:#2f4b4b;
   --text-color-main: #eee;
   --text-color-second: #aaa;
   --bg-color:#222;
@@ -95,17 +100,27 @@ export default {
 }
 
 body{
-  background: var(--bg-color);
   font-family: Roboto, Helevetica, Arial, sans-serif;
-  color: var(--text-color-main);
 }
 
 .container {
   display: flex;
   flex-flow: column nowrap;
   min-height: 100vh;
+  color: var(--text-color-main);
+  background: var(--bg-color);
 }
+//mods dark and light
 
+.light {
+  --primary-color: #88dbdb;
+  --secondary-color:#aed389;
+  --third-color:#b5e6a6;
+  --text-color-main: #222;
+  --text-color-second: #666;
+  --bg-color:#eee;
+}
+//mods --end
 .header {
   background-color:var(--third-color);
   //css locks
@@ -119,6 +134,11 @@ body{
       height: 4em;
       margin-right:.5em;
       flex-shrink: 0;
+    }
+    @media (min-width: 1000px) {
+      .logo:hover {
+        animation: rotate .5s infinite linear;
+      }
     }
    .title {
         flex-shrink: 1;
@@ -166,25 +186,35 @@ body{
 }
 
 .footer {
+  display: flex;
+  justify-content: space-between;
   font-size: .7em;
   flex: 0 0 2em;
   color: var(--text-color-second);
     &__text {
-      text-align: right;
-      margin-right: 1em;
+      margin: 0 1em;
+      a {
+        text-decoration: none;
+        color: inherit;
+        transition: all .15s;
+      }
+      a:hover {
+        color: var(--text-color-main);
+      }
     }
   }
 
+/* .rotating {
+  animation: rotate 1s infinite linear;
+} */
 
-@keyframes slidein {
+@keyframes rotate {
   from {
-    margin-left: 100%;
-    width: 300%;
+    transform: rotate3d(0, 0, 0, 360deg);
   }
 
   to {
-    margin-left: 0%;
-    width: 100%;
+   transform: rotate3d(0, 0, 1, 360deg);
   }
 }
 
