@@ -1,11 +1,16 @@
 <template>
-    <div>
-        <h2>
-            How much is this? <br/> <span>{{question}}</span>
+    <div class="question-container">
+        <p>
+            How much is...
+        </p>
+        <h2 class="equation">
+             {{question}}
         </h2>
-        <div>
+        <div class="answers">
             <div class="answer" v-for="(answer, index) in answers" @click="answerChosen(answer.ifCorrect)" :key="index">
-                {{answer.content}} 
+                <p>
+                    {{answer.content}} 
+                </p>
             </div>
         </div>
     </div>
@@ -76,9 +81,49 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    .question-container {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: center;
+        .equation {
+            font-size: 2.3em;
+            padding: .2em .5em .5em;
+            font-weight: 300;
 
-    div {
-        color: var(--primary-color);
+        }
+        @media (orientation: portrait), (min-width: 700px) {
+            .equation {
+                padding: .5em 1em 1em  1em;
+            }
+        }
+        .answers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            justify-items: center;
+            align-items: center;
+            grid-gap: 5vmin;
+            .answer {
+                background-color: var(--third-color);
+                cursor: pointer;
+                font-size: 1.4em;
+                width: 4em;
+                height: 4em;
+                line-height: 4em;
+                text-align: center;
+                border: .1em solid var(--text-color-main);
+                border-radius: 50%;
+            }
+        }
+        @media (orientation: landscape) {
+            .answers {
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+                .answer {
+                }
+            }
+        }
     }
 </style>
 

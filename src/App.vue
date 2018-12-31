@@ -32,12 +32,12 @@
 
     <main class="main">
       <div class="game-container">
-        <component :is="tileNow" @nexted="tileNow='app-question'" @answerChosen="answerChosen">
+        <component :is="tileNow" @nexted="tileNow='app-question'" @answerChosen="answerChosen" :ifGoodAnswer="ifGoodAnswer">
 
-        </component>
-        <button @click="(tileNow=='app-result')?tileNow='app-question':tileNow='app-result'">ZMIEN</button>  
+        </component>  
       </div>
     </main>
+
   <footer class="footer">
     <p class="footer__text">
     <a href="#" onclick="localStorage.setItem('mode', (localStorage.getItem('mode') || 'light') === 'light' ? 'bright' : 'light'); localStorage.getItem('mode') === 'light' ? document.querySelector('body').classList.add('light') : document.querySelector('body').classList.remove('light')" title="Dark/bright mode">🌓 Light/dark</a>
@@ -45,8 +45,8 @@
     <p class="footer__text">
      <a href="https://github.com/sammerro">Click and see my other works!</a> 
     </p>
-
   </footer>
+  
   </div>
 </template>
 
@@ -57,17 +57,19 @@ import AppQuestion from './components/AppQuestion.vue';
 export default {
   data() {
     return {
-      tileNow: 'app-result'
+      tileNow: 'app-result',
+      ifGoodAnswer: true
     }
   },
   components: {AppResult, AppQuestion},
   methods: {
     answerChosen(ifCorrect) {
       if (ifCorrect ) {
-        this.tileNow = 'app-result'
+        this.ifGoodAnswer = true;
       } else {
-        alert("bad answer. Try one more time.")
+        this.ifGoodAnswer = false;
       }
+        this.tileNow = 'app-result';
     }
   }
 }
@@ -89,6 +91,14 @@ export default {
   --text-color-main: #eee;
   --text-color-second: #aaa;
   --bg-color:#222;
+  --bg-color-second: #555;
+
+  --btn-color: #0c642e;
+  --btn-color-hover:#073f1d;
+  --btn-color-active:  #053116;
+
+  --error-text-color: rgb(226, 146, 146);
+  --success-text-color:  rgb(166, 224, 143);
 }
 
 *,
@@ -119,6 +129,14 @@ body{
   --text-color-main: #222;
   --text-color-second: #666;
   --bg-color:#eee;
+  --bg-color-second: #bbb;
+
+  --error-text-color: rgb(77, 16, 16);
+  --success-text-color:  rgb(29, 70, 12);
+
+  --btn-color: #91dbad;
+  --btn-color-hover:#80b495;
+  --btn-color-active:  #397a52;
 }
 //mods --end
 .header {
@@ -188,8 +206,9 @@ body{
 .footer {
   display: flex;
   justify-content: space-between;
-  font-size: .7em;
-  flex: 0 0 2em;
+  align-items: center;
+  font-size: .8em;
+  flex: 0 0 2.5em;
   color: var(--text-color-second);
     &__text {
       margin: 0 1em;
@@ -207,6 +226,22 @@ body{
 /* .rotating {
   animation: rotate 1s infinite linear;
 } */
+
+.btn {
+  color: var(--text-color-main);
+  background-color:var(--btn-color);
+  border: .1em solid var(--text-color-main);
+  border-radius: .2em;
+  padding: .5em 1.5em;
+  cursor: pointer;
+  transition: all .15s;
+}
+.btn:hover {
+  background-color:var(--btn-color-hover);
+}
+.btn:active {
+  background-color:var(--btn-color-active);
+}
 
 @keyframes rotate {
   from {
