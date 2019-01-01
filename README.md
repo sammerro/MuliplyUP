@@ -28,4 +28,3 @@ info for user about keyboard use.
 #addons
 -Timer
 -View for end-game like points etc
--test  -- -change
