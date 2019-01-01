@@ -7,7 +7,7 @@
              {{question}}
         </h2>
         <div class="answers">
-            <div class="answer" v-for="(answer, index) in answers" @click="answerChosen(answer.ifCorrect)" :key="index">
+            <div class="answer" v-for="(answer, index) in answers" @click="answerChosen(answer.ifCorrect, index)" :key="index" :class="{darken: selected === index} ">
                 <p>
                     {{answer.content}} 
                 </p>
@@ -27,7 +27,8 @@ export default {
                 {ifCorrect: true, content: 0},
                 {ifCorrect: true, content: 0},
                 {ifCorrect: true, content: 0}
-            ]
+            ],
+            selected: undefined
         }
     },
 
@@ -37,7 +38,6 @@ export default {
             const a = this.generateRandomNumber(5.5,3.5,false);
             const b = this.generateRandomNumber(5.5,3.5,false);
             const result = a*b;
-            const times = "&times;";
             this.question = `${a} \xD7 ${b}`
             //position of correct answer
             const correctIndex = Math.floor(Math.random()*4);
@@ -69,8 +69,9 @@ export default {
             } while (rand === center && excludeCenter);
             return rand;
         },
-        answerChosen(ifCorrect) {
-            this.$emit('answerChosen',ifCorrect)
+        answerChosen(ifCorrect, id) {
+            this.selected = id;
+            this.$emit('answerChosen',ifCorrect);
         }
     },
 
@@ -108,22 +109,26 @@ export default {
             .answer {
                 background-color: var(--third-color);
                 cursor: pointer;
-                font-size: 1.4em;
+                font-size: 1.5em;
                 width: 4em;
                 height: 4em;
                 line-height: 4em;
                 text-align: center;
-                border: .1em solid var(--text-color-main);
+                border: 1.5px solid var(--text-color-main);
                 border-radius: 50%;
+                transition: all .15s;
             }
         }
         @media (orientation: landscape) {
             .answers {
                 grid-template-columns: 1fr 1fr 1fr 1fr;
+                grid-gap: 1em;
                 .answer {
+
                 }
             }
         }
+
     }
 </style>
 

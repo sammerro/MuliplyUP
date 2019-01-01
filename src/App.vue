@@ -210,8 +210,9 @@ body{
   font-size: .8em;
   flex: 0 0 2.5em;
   color: var(--text-color-second);
+  padding-right: 1em;
+  padding-left: 1em;
     &__text {
-      margin: 0 1em;
       a {
         text-decoration: none;
         color: inherit;
@@ -241,6 +242,10 @@ body{
 }
 .btn:active {
   background-color:var(--btn-color-active);
+}
+
+.darken {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
 }
 
 @keyframes rotate {
